@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tienda de aguas frescas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <h1>Tienda de aguas frescas</h1>
+            <a href="carrito.html" class="boton-carrito">
+                🛒 Carrito <span id="contador">0</span>
+            </a>
+        </div>
+        <p>Elige tus productos</p>
+    </header>
+
+    <div id="aviso-servidor" class="mensaje-aviso" hidden>
+        El servidor está despertando, puede tardar hasta un minuto la primera vez...
+    </div>
+    <div id="mensaje-exito" class="mensaje-exito" hidden>Producto agregado al carrito</div>
+
+    <main>
+        <section class="catalogo">
+            <h2>Nuestros Productos</h2>
+            <div class="productos-grid" id="productos">
+                <p>Cargando productos...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/comun.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

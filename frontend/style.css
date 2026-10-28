@@ -313,3 +313,17 @@ footer {
         margin: 0 auto;
     }
 }
+/* ---- Agregados para la versión con backend separado ---- */
+[hidden] { display: none !important; }
+
+.mensaje-error,
+.mensaje-aviso {
+    max-width: 1000px;
+    margin: 15px auto 0 auto;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.mensaje-error { background: #fde0dc; color: #8a2a1a; }
+.mensaje-aviso { background: #fff4cc; color: #6b5400; }
