@@ -2,4 +2,4 @@
 // Cuando estás probando en tu PC usa el backend local automáticamente.
 const API_URL = ["localhost", "127.0.0.1"].includes(location.hostname)
     ? "http://127.0.0.1:5000"
-    : "https://CAMBIA-ESTO.onrender.com";
+    : "https://tienda-petf.onrender.com/";
