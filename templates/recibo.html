@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Recibo de compra</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="no-imprimir">
+        <h1>Compra realizada</h1>
+    </header>
+
+    <main>
+        <section class="recibo-caja">
+
+            <div class="recibo-ticket" id="ticket">
+                <h2>Recibo o Ticket</h2>
+                <p>Recibo No. {{ "%06d"|format(pedido.id) }}</p>
+                <p>{{ fecha }}</p>
+                <p><strong>Cliente:</strong> {{ pedido.nombre }}</p>
+                <hr>
+                <table class="tabla-ticket">
+                    {% for item in pedido['items'] %}
+                        <tr>
+                            <td>{{ item.cantidad }}x {{ item.nombre }}</td>
+                            <td>${{ item.subtotal|dinero }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <hr>
+                <p class="total-ticket">TOTAL: ${{ pedido.total|dinero }}</p>
+                <p class="aviso-ticket">Recibo informativo — no es un documento fiscal oficial.</p>
+            </div>
+
+            <div class="acciones-recibo no-imprimir">
+                <a href="{{ url_for('static', filename=pedido.recibo) }}" download class="boton-descarga">
+                    Descargar como imagen
+                </a>
+                <button onclick="window.print()" class="boton-descarga boton-secundario">
+                    Guardar como PDF (imprimir)
+                </button>
+                {% if enlace_whatsapp %}
+                    <a href="{{ enlace_whatsapp }}" target="_blank" class="boton-descarga boton-whatsapp">
+                        Enviar por WhatsApp
+                    </a>
+                {% endif %}
+                <br><br>
+                <a href="{{ url_for('index') }}">← Volver al catálogo</a>
+            </div>
+
+        </section>
+    </main>
+</body>
+</html>

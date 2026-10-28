@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tu carrito - Dulce Feria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <h1>Tu Carrito</h1>
+            <a href="{{ url_for('index') }}" class="boton-carrito">← Seguir comprando</a>
+        </div>
+    </header>
+
+    <main>
+        {% if not items %}
+            <section class="formulario carrito-triste">
+                <p><strong>¡Uy! Tu carrito está vacío.</strong></p>
+                <a href="{{ url_for('index') }}" class="boton-descarga" style="text-decoration: none;">Ir al catálogo</a>
+            </section>
+        {% else %}
+
+            <section class="carrito-tabla">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td>{{ item.nombre }}</td>
+                                <td>{{ item.cantidad }}</td>
+                                <td>${{ item.precio|dinero }}</td>
+                                <td>${{ item.subtotal|dinero }}</td>
+                                <td>
+                                    <a href="{{ url_for('eliminar_carrito', id=item.id_producto) }}" class="eliminar">Quitar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p class="total-carrito">Total: ${{ total|dinero }}</p>
+            </section>
+
+            <section class="formulario">
+                <h2>Finalizar compra</h2>
+                <form action="{{ url_for('procesar_compra') }}" method="POST">
+                    <label for="nombre">Nombre y apellido</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <label for="whatsapp">Número de WhatsApp (opcional)</label>
+                    <input type="text" id="whatsapp" name="whatsapp" pattern="[0-9]{8,15}" title="Numero SIN ESPACIOS ej; 50366780311">
+
+                    <button type="submit">Pagar y generar recibo</button>
+                </form>
+            </section>
+
+        {% endif %}
+    </main>
+</body>
+</html>

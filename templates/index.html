@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda de aguas frescas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <h1>Tienda de aguas frescas</h1>
+            <a href="{{ url_for('ver_carrito') }}" class="boton-carrito">
+                🛒 Carrito {{ unidades_carrito }}
+            </a>
+        </div>
+        <p>Elige tus productos</p>
+    </header>
+
+    {% if 'agregado' in request.args %}
+        <div class="mensaje-exito">Producto agregado al carrito</div>
+    {% endif %}
+
+    <main>
+        <section class="catalogo">
+            <h2>Nuestros Productos</h2>
+            <div class="productos-grid">
+                {% for producto in productos %}
+                    <div class="producto-card">
+
+                        {% if producto.id in (1, 2, 3, 4) %}
+                            <img src="{{ url_for('static', filename='imagenes/Jugo%d.jpg' % producto.id) }}" alt="{{ producto.nombre }}" class="producto-img">
+                        {% endif %}
+
+                        <h3>{{ producto.nombre }}</h3>
+                        <p class="precio">${{ producto.precio|dinero }}</p>
+                        <p class="stock">Disponibles: {{ producto.stock }}</p>
+
+                        <form action="{{ url_for('agregar_carrito') }}" method="POST" class="form-agregar">
+                            <input type="hidden" name="id_producto" value="{{ producto.id }}">
+                            <label>Cantidad</label>
+                            <input type="number" name="cantidad" min="1" max="{{ producto.stock }}" value="1">
+                            <button type="submit">Agregar al carrito</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
